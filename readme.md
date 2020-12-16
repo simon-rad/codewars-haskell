@@ -4,7 +4,7 @@ Archive of katas that I have solved
 
 ## 6ku done
 
-### The Deaf Rats of Hamelin
+### The Deaf Rats of Hamelin (6ku)
 
 [Kata link](https://www.codewars.com/kata/598106cb34e205e074000031)
 
@@ -13,7 +13,7 @@ Archive of katas that I have solved
 Somebody solved with JUST ONE recursion!
 Amazing! [Check this variant](/6kuDone/TheDeafRatsOfHamelin/bestOnes/Best2.hs)
 
-### Two Sum
+### Two Sum (6ku)
 
 [Link](https://www.codewars.com/kata/52c31f8e6605bcc646000082)
 [MySolution](/6kuDone/TwoSum/TwoSum.hs)
