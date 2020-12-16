@@ -8,4 +8,4 @@ Archive of katas that I have solved
 
 [Kata link](https://www.codewars.com/kata/598106cb34e205e074000031)
 
-[MySolution](6kuDone\TheDeafRatsOfHamelin\TheDeafRatsOfHamelin.hs)
+[MySolution](/6kuDone/TheDeafRatsOfHamelin/TheDeafRatsOfHamelin.hs)
