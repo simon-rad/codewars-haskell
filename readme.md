@@ -8,15 +8,15 @@ Archive of katas that I have solved
 
 [Kata link](https://www.codewars.com/kata/598106cb34e205e074000031)
 
-[MySolution](/6kuDone/TheDeafRatsOfHamelin/TheDeafRatsOfHamelin.hs)
+[My Solution](/6kuDone/TheDeafRatsOfHamelin/TheDeafRatsOfHamelin.hs)
 
 Somebody solved with JUST ONE recursion!
 Amazing! [Check this variant](/6kuDone/TheDeafRatsOfHamelin/bestOnes/Best2.hs)
 
 ### Two Sum (6ku)
 
-[Link](https://www.codewars.com/kata/52c31f8e6605bcc646000082)
-[MySolution](/6kuDone/TwoSum/TwoSum.hs)
+[Kata Link](https://www.codewars.com/kata/52c31f8e6605bcc646000082)
+[My Solution](/6kuDone/TwoSum/TwoSum.hs)
 
 Learned that you can traverse lists like this
 
@@ -45,3 +45,31 @@ tryOutZip list = [(fst x, fst y, snd x + snd y) | x <- zipped, y <- zipped, fst 
 -- tryOutZip [1,2,3]
 -- [(0,1,3),(0,2,4),(1,2,5)]
 ```
+
+### Find the odd int (6ku)
+
+[Kata link](https://www.codewars.com/kata/54da5a58ea159efa38000836/)
+[My Solution](/6kuDone/FindTheOddInt/FindTheOddInt.hs)
+
+Somebody solved by just using Binary xor
+
+```haskell
+import Data.Bits (xor)
+
+findOdd :: [Int] -> Int
+findOdd = foldr xor 0
+```
+
+for example if we take [5,6,6]
+
+1. 0 `xor` 5 = 5
+2. 5 `xor` 6 = 3
+3. 3 `xor` 6 = 5
+
+for [2,1,3,2,3]
+
+1. 0 `xor` 2 = 2
+2. 2 `xor` 1 = 3
+3. 3 `xor` 3 = 0
+4. 0 `xor` 2 = 2
+5. 2 `xor` 3 = 1
