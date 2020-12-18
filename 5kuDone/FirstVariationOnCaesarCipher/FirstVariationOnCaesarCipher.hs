@@ -1,4 +1,4 @@
-module Playground where
+module FirstVariationOnCaesarCipher where
 
 import Data.Char ( ord, chr, isLower, isUpper )
 import Data.List.Split ( chunksOf )
@@ -13,7 +13,26 @@ lettersCount :: Int
 lettersCount = ord 'z' - ord 'a' + 1
 
 moveChar :: Int -> (Int -> Int) -> Char -> Char
-moveChar x y = chr . (+ x) . flip mod 26 . y . flip (-) x . ord
+moveChar 
+    charStartsAt 
+    modifyNumber 
+    characterToMove = chr resultingIndex
+    where
+        resultingIndex = resultingIndexFrom0 + charStartsAt
+        resultingIndexFrom0 = mod (modifyNumber charIndexFrom0) lettersCount
+        charIndexFrom0 = charIndex - charStartsAt
+        charIndex = ord characterToMove
+
+-- More functional WAY
+moveCharFP1 :: Int -> (Int -> Int) -> Char -> Char
+moveCharFP1
+    charStartsAt 
+    modifyNumber  = chr . (+ charStartsAt) . flip mod lettersCount . modifyNumber . flip (-) charStartsAt . ord
+
+-- 100% FP :D
+moveCharFP100 :: Int -> (Int -> Int) -> Char -> Char
+moveCharFP100 x y = chr . (+ x) . flip mod 26 . y . flip (-) x . ord
+    
 
 moveUpperChar :: (Int -> Int) -> Char -> Char
 moveUpperChar = moveChar upperStartsAt
@@ -60,6 +79,3 @@ expected :: [[Char]]
 expected = ["J vltasl rlhr ","zdfog odxr ypw"," atasl rlhr p ","gwkzzyq zntyhv"," lvz wp!!!"]
 
 
-
-test :: String
-test = demovingShift (movingShift source 1) 1
