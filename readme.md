@@ -215,3 +215,34 @@ But this could have beed written if FP way using composition, like that!
 ```haskell
 take 5 . (++ [""]) $ encodeAndBrake s i
 ```
+
+#### quotRem Magic
+
+To get amount of items in a chunk I had to implement this function
+
+```haskell
+getDivider :: String -> Int
+getDivider x = ceiling ( fromIntegral (length x) / 5 ) :: Int
+-- ceiling ( fromIntegral (17) / 5 )
+```
+
+It takes list `[Char]`
+And checking how many items should be in a piles to get 5 chunks at most!
+
+For example
+If length is `17` the five parts will have lengths of `4, 4, 4, 4, 1`
+So this function would return `4` that will sufice `chunksOf` method and split list accordingly
+
+But this could have been done more simply by using `quotRem`
+
+```haskell
+17 `quotRem` 5
+```
+
+quotRem - basically 2 functions called on same arguments and result put in a pair
+`(quot x y, rem x y)`
+
+`quot 17 5` == `3`
+`rem 17 5` == `2`
+So we get `(3,2)`
+We increment `sft x + 1` and we are golden
