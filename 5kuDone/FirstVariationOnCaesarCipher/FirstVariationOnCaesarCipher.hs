@@ -69,6 +69,10 @@ brakeString x = chunksOf (getDivider x) x
 movingShift :: String -> Int -> [String]
 movingShift input moveAt = take 5 $ brakeString (encode input moveAt) ++ [""]
 
+-- This how it should have been written ))
+movingShiftFP :: String -> Int -> [String]
+movingShiftFP input moveAt = take 5 . (++ [""]) $ brakeString (encode input moveAt)
+
 demovingShift :: [String] -> Int -> String
 demovingShift input = decode (concat input)
  
@@ -77,5 +81,12 @@ source :: [Char]
 source = "I should have known that you would have a perfect answer for me!!!"
 expected :: [[Char]]
 expected = ["J vltasl rlhr ","zdfog odxr ypw"," atasl rlhr p ","gwkzzyq zntyhv"," lvz wp!!!"]
+
+
+
+shift :: Int -> Int -> Int
+shift x y = x * 100 + y
+-- This could have fixed need to zip array with index array and using pairs
+test2 n = zipWith shift [n, n+1..] $ [5,7,9]
 
 

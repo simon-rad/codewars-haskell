@@ -85,6 +85,8 @@ My First 5ku Kata in Haskell!
 Used [Data.List.Split](https://hackage.haskell.org/package/split-0.2.3.4/docs/Data-List-Split.html) For a first time
 `chunksOf` was very helpfull for this task ))
 
+#### To many brackets
+
 Haskell is getting kind of anoying with no brackets, and discoragment of variables...
 
 ```haskell
@@ -122,24 +124,24 @@ moveChar
         charIndex = ord characterToMove
 ```
 
-Let's check best answers
+#### Fixing the brackets problem, in a haskell way
+
+##### Let's check best answers
 
 ```haskell
-lettersCount :: Int
-lettersCount = ord 'z' - ord 'a' + 1
-
 shift :: Int -> Char -> Char
 shift i c | isLower c = chr . (+97) . flip mod 26 . (+) (i - 97) $ ord c
           | isUpper c = chr . (+65) . flip mod 26 . (+) (i - 65) $ ord c
           | otherwise = c
 ```
 
-Wow, this feels like FP now!
-ok my `chr . (+97)` my bad, could have done the same in my function
+This looks like FP!
 
-Nice trick `flip mod 26`, could have done the same in my kata solution.
+- `chr . (+97)` instead doing it in layers, we compose!
+- `flip mod 26` more composition!
+Nice tricks!
 
-Let's try to rewrite our function with a new knowledge ))
+##### Let's try to rewrite our function with a new knowledge ))
 
 ```haskell
 lettersCount :: Int
@@ -151,9 +153,9 @@ moveChar
     modifyNumber  = chr . (+ charStartsAt) . flip mod lettersCount . modifyNumber . flip (-) charStartsAt . ord
 ```
 
-Now it's FP
+Now it's `FP`
 
-We need one more change to be 100 FP
+We need one more change to be `100% FP`
 make all variable names unreadable, and move some calculations to magic numbers!
 
 ```haskell
@@ -162,3 +164,54 @@ moveChar x y = chr . (+ x) . flip mod 26 . y . flip (-) x . ord
 ```
 
 Good luck finding out what it does, in a months :D
+
+#### ZipWith magic
+
+Another function in that solution is also interesting
+It uses this trick
+
+```haskell
+zipWith shift [n..] xs
+```
+
+So if we have function
+
+```haskell
+shift :: Int -> Int -> Int
+shift x y = x * 100 + y
+```
+
+And we want to apply this `shift` function to each element of an array of numbers like map but `x` should be index of an element, and y an element value
+We can simply do that
+
+```haskell
+zipWith shift [1..] $ [5,7,9]
+-- [105,207,309]
+```
+
+Moreover if we don't know starting index we can use a variable
+
+```haskell
+zipWith shift [n, n+1..] $ [5,7,9]
+```
+
+In this particular kata, that would help us get rid of passing `Int -> Int -> Int` function to tell how we should change index
+And remove `[(Int, Char)]` type from our function
+
+#### Simple composition
+
+When I was finished with kata, I still had one error where I have to return
+`["ab", "bc", "sm", "gg", ""]`
+I was returning only 4 elements
+`["ab", "bc", "sm", "gg"]`
+So I fixed this by taking 5 elements and adding one empty at the end
+
+```haskell
+take 5 $ encodeAndBrake s i ++ [""]
+```
+
+But this could have beed written if FP way using composition, like that!
+
+```haskell
+take 5 . (++ [""]) $ encodeAndBrake s i
+```

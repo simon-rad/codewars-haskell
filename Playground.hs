@@ -47,8 +47,11 @@ getDivider x = ceiling ( fromIntegral (length x) / 5 ) :: Int
 brakeString :: String -> [String]
 brakeString x = chunksOf (getDivider x) x
 
+movingShiftOld :: String -> Int -> [String]
+movingShiftOld input moveAt = take 5 $ brakeString (encode input moveAt) ++ [""]
+
 movingShift :: String -> Int -> [String]
-movingShift input moveAt = take 5 $ brakeString (encode input moveAt) ++ [""]
+movingShift input moveAt = take 5 . (++ [""]) $ brakeString (encode input moveAt)
 
 demovingShift :: [String] -> Int -> String
 demovingShift input = decode (concat input)
@@ -63,3 +66,8 @@ expected = ["J vltasl rlhr ","zdfog odxr ypw"," atasl rlhr p ","gwkzzyq zntyhv",
 
 test :: String
 test = demovingShift (movingShift source 1) 1
+
+shift :: Int -> Int -> Int
+shift x y = x * 100 + y
+
+test2 n = zipWith shift [n, n+1..] $ [5,7,9]
