@@ -246,3 +246,164 @@ quotRem - basically 2 functions called on same arguments and result put in a pai
 `rem 17 5` == `2`
 So we get `(3,2)`
 We increment `sft x + 1` and we are golden
+
+### Statistics for an Athletic Association (6ku)
+
+Was harder than I have expected...
+
+[Kata link](https://www.codewars.com/kata/55b3425df71c1201a800009c)
+[My solution](/6kuDone/StatisticsForAnAthleticAssociation/StatisticsForAnAthleticAssociation.hs)
+
+#### Used Data Structure for a first time
+
+```haskell
+data DateHMS = DateHMS Int Int Int deriving (Show) 
+```
+
+It's quite eazy to work with those, to extract values you can simmply do that in arguments by diconstruction
+
+```haskell
+fromDateHMStoSecnds :: DateHMS -> Int
+fromDateHMStoSecnds (DateHMS h m s) = convertToMiliseconds h m s
+```
+
+Creating an instance `DateHMS 0 0 0`
+
+```haskell
+convertStringToHMS i
+ | length spl == 3 = DateHMS (readInt 0) (readInt 1) (readInt 2)
+ | otherwise = DateHMS 0 0 0
+```
+
+### Zip With
+
+I wrote this f to convert from HH:mm:ss to milliseconds, it works but kind of ugly
+
+```haskell
+convertToMiliseconds :: Int -> Int -> Int -> Int
+convertToMiliseconds h m s = s * 1000 + m * 60 * 1000 + h * 60 * 60 * 1000
+```
+
+I found this function in best solutions section
+
+```haskell
+timeToSec :: String -> Int
+timeToSec = sum . zipWith (*) [3600,60,1] . map read . splitOn "|"
+```
+
+It kind of does to many things as for me, but `zipWith` trick cood be used in my function
+
+```haskell
+convertToMiliseconds :: Int -> Int -> Int -> Int
+convertToMiliseconds h m s = sum . zipWith (*) [1000, 1000*60, 1000*60*60] $ [s, m, h]
+```
+
+And as ussual it's not 100% FP if we don't have `magic numbers` and `unreadable function/variable names`
+
+```haskell
+convToMs :: Int -> Int -> Int -> Int
+convToMs x y z = sum . zipWith (*) [1000, 60000, 3600000] $ [z, y, x]
+```
+
+Now we golden :D
+
+#### printf
+
+To construct part of report string I have used this helper
+
+```haskell
+fromDateHMSToReport :: String -> DateHMS -> String
+fromDateHMSToReport prefix (DateHMS h m s) = prefix ++ withLeadingZero h ++ "|" ++ withLeadingZero m ++ "|" ++ withLeadingZero s
+```
+
+And used it to make final string
+
+```haskell
+getRangeStats :: [Char] -> String
+getRangeStats = getStats "Range: " range
+
+getAverageStats :: [Char] -> String
+getAverageStats = getStats " Average: " average
+
+getMedianStats :: [Char] -> String
+getMedianStats = getStats " Median: " median
+
+-- And then doing this
+concat [getRangeStats x, getAverageStats x, getMedianStats x]
+```
+
+Let's make it look better with help of `printf`
+
+We start with a helper, we remove prefix, and use printf
+
+```haskell
+fromDateHMSToReport :: DateHMS -> String
+fromDateHMSToReport (DateHMS h m s) = 
+    printf "%s|%s|%s" (withLeadingZero h) (withLeadingZero m) (withLeadingZero s)
+```
+
+And as ussual make variable/functionNames unreadable to reach 100% FP
+
+```haskell
+frDtToRep :: DateHMS -> String
+frDtToRep (DateHMS h m s) = 
+    printf "%s|%s|%s" (wthLd0 h) (wthLd0 m) (wthLd0 s)
+```
+
+And instead of concat we now have
+
+```haskell
+getResult :: String -> String
+getResult x = printf "Range: %s Average: %s Median: %s" r a m
+  where 
+    r = getStats range x
+    a = getStats average x
+    m = getStats median x
+```
+
+#### Using quotRem VS divMod
+
+To get HH:mm:ss back I wrote this function
+
+```haskell
+fromSecondsToDateHMS :: Int -> DateHMS
+fromSecondsToDateHMS seconds = DateHMS h m s
+    where 
+        (h,mLeft) = quotRem seconds (60*60 * 1000)
+        (m,ms) = quotRem mLeft (60 * 1000)
+        (s, _) = quotRem ms 1000
+```
+
+In one of the solutions I saw somebody using `divMod`
+So what the difference?
+
+`quotRem` - simultaneous `quot` and `rem`
+`quotRem 157 50 = (3,7)`
+`quotRem (-157) 50 = (-3, -7)`
+`quotRem (-157) (-50) = (3,-7)`
+
+`divMod` - simultaneous `div` and `mod`
+`divMod 157 50 = (3,7)`
+`divMod (-157) 50 = (-4,43)`
+`divMod (-157) (-50) = (3, -7)`
+
+Where
+`quot` - integer division truncated toward zero
+`quot 86 10 = 8`
+
+`div` - integer division truncated toward negative infinity
+`div 86 10 = 8`
+
+The difference comes with negative numbers
+`div (-86) 10 = -9` - truncated toward negative infinity
+`quot (-86) 10 = -8` - truncated toward zero
+
+`rem` - integer remainder
+`rem 86 10 = 6`
+`mod (-1700) 1000 = -700`
+
+`mod` - integer modulus
+`mod 86 10 = 6`
+`mod (-1700) 1000 = 300`
+
+So in this particular case, as we don't work with negative numbers, it doesn't matter
