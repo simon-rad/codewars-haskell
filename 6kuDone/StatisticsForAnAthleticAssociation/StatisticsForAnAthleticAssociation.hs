@@ -1,6 +1,7 @@
 module StatisticsForAnAthleticAssociation where
 import Data.List (sort)
 import Data.List.Split ( splitOn )
+import Text.Printf
 
 average :: [Int] -> Int
 average x = round $ s / len
@@ -22,8 +23,15 @@ median x
 
 data DateHMS = DateHMS Int Int Int deriving (Show) 
 
+convertToMilisecondsBKP :: Int -> Int -> Int -> Int
+convertToMilisecondsBKP h m s = s * 1000 + m * 60 * 1000 + h * 60 * 60 * 1000
+
 convertToMiliseconds :: Int -> Int -> Int -> Int
-convertToMiliseconds h m s = s * 1000 + m * 60 * 1000 + h * 60 * 60 * 1000
+convertToMiliseconds h m s = sum . zipWith (*) [1000, 1000*60, 1000*60*60] $ [s, m, h]
+
+-- 100% FP
+convToMs :: Int -> Int -> Int -> Int
+convToMs x y z = sum . zipWith (*) [1000, 60000, 3600000] $ [z, y, x]
 
 fromDateHMStoSecnds :: DateHMS -> Int
 fromDateHMStoSecnds (DateHMS h m s) = convertToMiliseconds h m s
@@ -49,25 +57,39 @@ withLeadingZero x
  | length (show x) == 1 = '0' : show x
  | otherwise = show x
 
-fromDateHMSToReport :: String -> DateHMS -> String
-fromDateHMSToReport prefix (DateHMS h m s) = prefix ++ withLeadingZero h ++ "|" ++ withLeadingZero m ++ "|" ++ withLeadingZero s
+-- Old one
+fromDateHMSToReportBKP :: String -> DateHMS -> String
+fromDateHMSToReportBKP prefix (DateHMS h m s) = prefix ++ withLeadingZero h ++ "|" ++ withLeadingZero m ++ "|" ++ withLeadingZero s
 
-getStats :: String -> ([Int] -> Int) -> [Char] -> String
-getStats prefix statsF = fromDateHMSToReport prefix . fromSecondsToDateHMS . statsF . map (fromDateHMStoSecnds . convertStringToHMS) . splitOn ", "
+fromDateHMSToReport :: DateHMS -> String
+fromDateHMSToReport (DateHMS h m s) = 
+    printf "%s%s|%s|%s" (withLeadingZero h) (withLeadingZero m) (withLeadingZero s)
 
-getRangeStats :: [Char] -> String
-getRangeStats = getStats "Range: " range
+--- 100% FP
+wthLd0 :: Int -> String 
+wthLd0 x
+ | length (show x) == 1 = '0' : show x
+ | otherwise = show x
 
-getAverageStats :: [Char] -> String
-getAverageStats = getStats " Average: " average
+-- 100% FP version
+frDtToRep :: DateHMS -> String
+frDtToRep (DateHMS h m s) = 
+    printf "%s|%s|%s" (wthLd0 h) (wthLd0 m) (wthLd0 s)
 
-getMedianStats :: [Char] -> String
-getMedianStats = getStats " Median: " median
+getStats :: ([Int] -> Int) -> String -> String
+getStats statsF = fromDateHMSToReport . fromSecondsToDateHMS . statsF . map (fromDateHMStoSecnds . convertStringToHMS) . splitOn ", "
+
+getResult :: String -> String
+getResult x = printf "Range: %s Average: %s Median: %s" r a m
+  where 
+    r = getStats range x
+    a = getStats average x
+    m = getStats median x
 
 stat :: [Char] -> [Char]
 stat x
  | x == "" = ""
- | otherwise = concat [getRangeStats x, getAverageStats x, getMedianStats x]
+ | otherwise = getResult x
 
 -- Test samples
 
