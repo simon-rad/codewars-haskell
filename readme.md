@@ -407,3 +407,12 @@ The difference comes with negative numbers
 `mod (-1700) 1000 = 300`
 
 So in this particular case, as we don't work with negative numbers, it doesn't matter
+
+### Detect Pangram (6ku)
+
+Eazy kata should be 7 or 8 ku
+
+[Kata link](https://www.codewars.com/kata/545cedaa9943f7fe7b000048)
+[My Solution](/6kuDone/DetectPangram/DetectPangram.hs)
+
+

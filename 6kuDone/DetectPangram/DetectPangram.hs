@@ -1,4 +1,4 @@
-module Playground where
+module DetectPangram where
 import Data.Char
 import Data.List
 
