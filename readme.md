@@ -428,7 +428,6 @@ checkNumb x = t == x
   where t = sum . (flip . zipWith) (^) [1..] . map digitToInt $ show x
 ```
 
-
 #### Using == as a function
 
 You can use `(== n)` as a function in composition, instead of using variable
@@ -436,3 +435,18 @@ You can use `(== n)` as a function in composition, instead of using variable
 ```haskell
 f n = (== n) . sum . zipWith (flip (^)) [1..] . map digitToInt . show $ n
 ```
+
+### Reverse or rotate? (6ku)
+
+[Kata Link](https://www.codewars.com/kata/56b5afb4ed1f6d5fb0000991)
+[My Solution](/6kuDone/ReverseOrRotate/ReverseOrRotate.hs)
+
+#### Filtering  by length
+
+Instead of
+
+`filter (\i -> length i == sz)`
+
+We can use composition
+
+`filter ((== n) . length)`

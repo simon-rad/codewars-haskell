@@ -1,4 +1,4 @@
-module Playground where
+module ReverseOrRotate where
 import Data.Char ( digitToInt )
 import Data.List.Split
 
