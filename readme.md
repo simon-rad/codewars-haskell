@@ -420,3 +420,19 @@ Eazy kata should be 7 or 8 ku
 [Kata link](https://www.codewars.com/kata/5626b561280a42ecc50000d1)
 [My Solution](/6kuDone/TakeNumberAndSumItsDigitsRaisedToTheConsecutivePowers/TakeNumberAndSumItsDigitsRaisedToTheConsecutivePowers.hs)
 
+Used zipWith that I have learned before ))
+
+```haskell
+checkNumb :: Int -> Bool
+checkNumb x = t == x
+  where t = sum . (flip . zipWith) (^) [1..] . map digitToInt $ show x
+```
+
+
+#### Using == as a function
+
+You can use `(== n)` as a function in composition, instead of using variable
+
+```haskell
+f n = (== n) . sum . zipWith (flip (^)) [1..] . map digitToInt . show $ n
+```
