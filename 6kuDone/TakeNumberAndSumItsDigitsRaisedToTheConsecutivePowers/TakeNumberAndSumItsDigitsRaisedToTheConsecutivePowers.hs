@@ -1,5 +1,4 @@
-module Playground where
-  -- TakeNumberAndSumItsDigitsRaisedToTheConsecutivePowers
+module TakeNumberAndSumItsDigitsRaisedToTheConsecutivePowers where
 import Data.Char ( digitToInt )
 
 checkNumb :: Int -> Bool

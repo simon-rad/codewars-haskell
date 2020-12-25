@@ -415,4 +415,8 @@ Eazy kata should be 7 or 8 ku
 [Kata link](https://www.codewars.com/kata/545cedaa9943f7fe7b000048)
 [My Solution](/6kuDone/DetectPangram/DetectPangram.hs)
 
+### Take a Number And Sum Its Digits Raised To The Consecutive Powers And ....¡Eureka!! (6ku)
+
+[Kata link](https://www.codewars.com/kata/5626b561280a42ecc50000d1)
+[My Solution](/6kuDone/TakeNumberAndSumItsDigitsRaisedToTheConsecutivePowers/TakeNumberAndSumItsDigitsRaisedToTheConsecutivePowers.hs)
 
