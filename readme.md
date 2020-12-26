@@ -450,3 +450,26 @@ Instead of
 We can use composition
 
 `filter ((== n) . length)`
+
+### How Much (6ku)
+
+It seems like understanding the description is more chalanging than actually solving the kata
+
+[Kata Link](https://www.codewars.com/kata/55b4d87a3766d9873a0000d4)
+[My Solution](/6kuDone/HowMuch/HowMuch.hs)
+
+#### Mapping Maybe tipe
+
+Quite convinietly instead of doing
+
+```haskell
+map fromJust . filter isJust . map isIt $ [n..m]
+```
+
+you can use `mapMaybe`
+That will filter out Notings and map your List
+
+```haskell
+mapMaybe isIt [n..m]
+```
+

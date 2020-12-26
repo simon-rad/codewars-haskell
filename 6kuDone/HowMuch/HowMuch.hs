@@ -1,4 +1,4 @@
-module Playground where
+module HowMuch where
 import Text.Printf ( printf )
 import Data.Maybe (mapMaybe)
 
