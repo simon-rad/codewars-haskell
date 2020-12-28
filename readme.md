@@ -378,33 +378,40 @@ In one of the solutions I saw somebody using `divMod`
 So what the difference?
 
 `quotRem` - simultaneous `quot` and `rem`
-`quotRem 157 50 = (3,7)`
-`quotRem (-157) 50 = (-3, -7)`
-`quotRem (-157) (-50) = (3,-7)`
+
+- `quotRem 157 50 = (3,7)`
+- `quotRem (-157) 50 = (-3, -7)`
+- `quotRem (-157) (-50) = (3,-7)`
 
 `divMod` - simultaneous `div` and `mod`
-`divMod 157 50 = (3,7)`
-`divMod (-157) 50 = (-4,43)`
-`divMod (-157) (-50) = (3, -7)`
+
+- `divMod 157 50 = (3,7)`
+- `divMod (-157) 50 = (-4,43)`
+- `divMod (-157) (-50) = (3, -7)`
 
 Where
 `quot` - integer division truncated toward zero
-`quot 86 10 = 8`
+
+- `quot 86 10 = 8`
 
 `div` - integer division truncated toward negative infinity
-`div 86 10 = 8`
+
+- `div 86 10 = 8`
 
 The difference comes with negative numbers
-`div (-86) 10 = -9` - truncated toward negative infinity
-`quot (-86) 10 = -8` - truncated toward zero
+
+- `div (-86) 10 = -9` - truncated toward negative infinity
+- `quot (-86) 10 = -8` - truncated toward zero
 
 `rem` - integer remainder
-`rem 86 10 = 6`
-`mod (-1700) 1000 = -700`
+
+- `rem 86 10 = 6`
+- `mod (-1700) 1000 = -700`
 
 `mod` - integer modulus
-`mod 86 10 = 6`
-`mod (-1700) 1000 = 300`
+
+- `mod 86 10 = 6`
+- `mod (-1700) 1000 = 300`
 
 So in this particular case, as we don't work with negative numbers, it doesn't matter
 
