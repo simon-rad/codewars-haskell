@@ -1,4 +1,4 @@
-module Playground where
+module TitleCase where
 import Data.Char ( toLower, toUpper )
 
 capitalizeIfNotException :: String -> String -> String

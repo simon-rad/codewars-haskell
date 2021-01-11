@@ -480,3 +480,9 @@ That will filter out Notings and map your List
 mapMaybe isIt [n..m]
 ```
 
+### TitleCase (6ku)
+
+An eazy one, straight forward solution
+
+[Kata Link](https://www.codewars.com/kata/5202ef17a402dd033c000009/s)
+[My Solution](/6kuDone/TitleCase/TitleCase.hs)
