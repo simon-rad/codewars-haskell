@@ -1,5 +1,5 @@
 # Katas from codewars
-
+.
 Archive of katas that I have solved
 
 ## Katas Log
@@ -32,7 +32,7 @@ Also you can use zip [0..] to get indexes!!!
 tryOutZip list = [(fst x, fst y, snd x + snd y) | x <- zipped, y <- zipped]
     where
         zipped = zip [0..] list
--- tryOutZip [1,2,3]      
+-- tryOutZip [1,2,3]
 -- [(0,0,2),(0,1,3),(0,2,4),(1,0,3),(1,1,4),(1,2,5),(2,0,4),(2,1,5),(2,2,6)]
 ```
 
@@ -91,9 +91,9 @@ Haskell is getting kind of anoying with no brackets, and discoragment of variabl
 
 ```haskell
 moveChar :: Int -> (Int -> Int) -> Char -> Char
-moveChar 
-    charStartsAt 
-    modifyNumber 
+moveChar
+    charStartsAt
+    modifyNumber
     characterToMove = chr (
             (
                 (
@@ -113,9 +113,9 @@ lettersCount :: Int
 lettersCount = ord 'z' - ord 'a' + 1
 
 moveChar :: Int -> (Int -> Int) -> Char -> Char
-moveChar 
-    charStartsAt 
-    modifyNumber 
+moveChar
+    charStartsAt
+    modifyNumber
     characterToMove = chr resultingIndex
     where
         resultingIndex = resultingIndexFrom0 + charStartsAt
@@ -148,8 +148,8 @@ lettersCount :: Int
 lettersCount = ord 'z' - ord 'a' + 1
 
 moveChar :: Int -> (Int -> Int) -> Char -> Char
-moveChar 
-    charStartsAt 
+moveChar
+    charStartsAt
     modifyNumber  = chr . (+ charStartsAt) . flip mod lettersCount . modifyNumber . flip (-) charStartsAt . ord
 ```
 
@@ -257,7 +257,7 @@ Was harder than I have expected...
 #### Used Data Structure for a first time
 
 ```haskell
-data DateHMS = DateHMS Int Int Int deriving (Show) 
+data DateHMS = DateHMS Int Int Int deriving (Show)
 ```
 
 It's quite eazy to work with those, to extract values you can simmply do that in arguments by diconstruction
@@ -338,7 +338,7 @@ We start with a helper, we remove prefix, and use printf
 
 ```haskell
 fromDateHMSToReport :: DateHMS -> String
-fromDateHMSToReport (DateHMS h m s) = 
+fromDateHMSToReport (DateHMS h m s) =
     printf "%s|%s|%s" (withLeadingZero h) (withLeadingZero m) (withLeadingZero s)
 ```
 
@@ -346,7 +346,7 @@ And as ussual make variable/functionNames unreadable to reach 100% FP
 
 ```haskell
 frDtToRep :: DateHMS -> String
-frDtToRep (DateHMS h m s) = 
+frDtToRep (DateHMS h m s) =
     printf "%s|%s|%s" (wthLd0 h) (wthLd0 m) (wthLd0 s)
 ```
 
@@ -355,7 +355,7 @@ And instead of concat we now have
 ```haskell
 getResult :: String -> String
 getResult x = printf "Range: %s Average: %s Median: %s" r a m
-  where 
+  where
     r = getStats range x
     a = getStats average x
     m = getStats median x
@@ -368,7 +368,7 @@ To get HH:mm:ss back I wrote this function
 ```haskell
 fromSecondsToDateHMS :: Int -> DateHMS
 fromSecondsToDateHMS seconds = DateHMS h m s
-    where 
+    where
         (h,mLeft) = quotRem seconds (60*60 * 1000)
         (m,ms) = quotRem mLeft (60 * 1000)
         (s, _) = quotRem ms 1000
