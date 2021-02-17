@@ -1,5 +1,4 @@
-module Main(main) where
-import Playground
+module Main (main) where
 
 main :: IO ()
 main = putStrLn "Hello"

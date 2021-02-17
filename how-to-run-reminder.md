@@ -1,5 +1,11 @@
 # How to run the project
 
+## Linux
+run `ghci`
+`:l Playground`
+to reload
+`:r`
+
 ## Cabal
 
 - `cabal v2-repl codewars-haskell`
