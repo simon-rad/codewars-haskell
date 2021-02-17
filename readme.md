@@ -486,3 +486,29 @@ An eazy one, straight forward solution
 
 [Kata Link](https://www.codewars.com/kata/5202ef17a402dd033c000009/s)
 [My Solution](/6kuDone/TitleCase/TitleCase.hs)
+
+
+### Dubstep (6ku)
+
+An eazy one, straight forward solution
+
+[Kata Link](https://www.codewars.com/kata/551dc350bf4e526099000ae5/solutions/haskell)
+[My Solution](/6kuDone/Dubstep/Dubstep.hs)
+
+Someone solved it like this, :D
+```haskell
+songDecoder :: String -> String
+songDecoder = unwords . words . go
+  where go []               = []
+        go ('W':'U':'B':xs) = ' ' : go xs
+        go (x:xs)           =   x : go xs
+
+-- And like this
+unDub :: String -> String
+unDub ""  = ""
+unDub ('W':'U':'B':s) = ' ': unDub s
+unDub (c:s) = c: unDub s
+
+songDecoder :: String -> String
+songDecoder = unwords . words . unDub
+```
